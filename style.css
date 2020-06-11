@@ -73,6 +73,10 @@ button {
     cursor: pointer;
 }
 
+#btn {
+    text-align: center;
+}
+
 label {
     display: flex;
     align-items: center;

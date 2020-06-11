@@ -25,7 +25,7 @@
             <input type="number" min="18" max="50" name="age" id="age" class="form-control" placeholder="Age" required/>
         </div>
         <div class="form-group">
-            <label for="education" id="dropdown">Education:</label>
+            <label for="education" id="dropdown_e">Education:</label>
             <select name="education" id="education" class="form-control">
                 <option disabled selected value>Select an option</option>
                 <option value="high">High</option>
@@ -38,20 +38,20 @@
             <p>Are you looking for a job?</p>
             <div>
                 <label for="definietly">
-                    <input type="radio" value="definietly" checked class="input-radio"/>Definietly</label>
+                    <input name="radiobutton" type="radio" value="definietly" checked class="input-radio"/>Definietly</label>
             </div>
             <div>
                 <label for="maybe">
-                    <input type="radio" value="maybe" class="input-radio"/>Maybe</label>
+                    <input name="radiobutton" type="radio" value="maybe" class="input-radio"/>Maybe</label>
             </div>
             <div>
                 <label for="not sure">
-                    <input type="radio" value="not sure" class="input-radio"/>Not sure</label>
+                    <input name="radiobutton" type="radio" value="not sure" class="input-radio"/>Not sure</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="industry" id="dropdown">Which industry?</label>
+            <label for="industry" id="dropdown_i">Which industry?</label>
             <select name="industry" id="industry" class="form-control">
                 <option disabled selected value>Select an option</option>
                 <option value="IT">IT</option>
@@ -63,23 +63,26 @@
             <p>Experience:</p>
             <div>
                 <label for="<1>">
-                    <input type="checkbox" value="<1" class="input-checkbox"/>up to 1 Year</label>
+                    <input name="checkbox" type="checkbox" value="<1" class="input-checkbox"/>up to 1 Year</label>
             </div>
             <div>
                 <label for="<2>">
-                    <input type="checkbox" value="<2" class="input-checkbox"/>up to 2 Years</label>
+                    <input name="checkbox" type="checkbox" value="<2" class="input-checkbox"/>up to 2 Years</label>
             </div>
             <div>
                 <label for=">3>">
-                    <input type="checkbox" value=">3" class="input-checkbox"/>greater than 3 Years</label>
+                    <input name="checkbox" type="checkbox" value=">3" class="input-checkbox"/>greater than 3 Years</label>
             </div>
         </div>
         <div class="form-group">
             <p>Any comments?</p>
             <textarea id="comments" class="form-control" placeholder="Enter your comments"></textarea>
         </div>
-        <button type="button">Submit</button>
+        <div id="btn">
+        <button type="button" onclick="clickButton()">Submit</button>
+        </div>
     </form>
 </div>
+<script src="script.js"></script>
 </body>
 </html>
