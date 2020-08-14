@@ -7,7 +7,6 @@
 </head>
 <body>
 <h1 id="title">Survey Form</h1>
-
 <p id="description">Thank you for taking the time</p>
 
 <div class="container">
@@ -18,11 +17,13 @@
         </div>
         <div class="form-group">
             <label for="email" id="email-label">Email:</label>
-            <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email" required/>
+            <input type="text" name="email" id="email" class="form-control"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Enter your email" required/>
         </div>
-        <div class="form-group">
-            <label for="age" id="age-label">Age:</label>
-            <input type="number" min="18" max="50" name="age" id="age" class="form-control" placeholder="Age" required/>
+        <div class="form-group" onsubmit="return validateForm()">
+            <label for="age" id="number-label">Age:</label>
+            <input type="number" min="18" max="50" name="age" id="age" class="form-control" placeholder="Age"
+                   required/>
         </div>
         <div class="form-group">
             <label for="education" id="dropdown_e">Education:</label>
@@ -38,7 +39,8 @@
             <p>Are you looking for a job?</p>
             <div>
                 <label for="definietly">
-                    <input name="radiobutton" type="radio" value="definietly" checked class="input-radio"/>Definietly</label>
+                    <input name="radiobutton" type="radio" value="definietly" checked
+                           class="input-radio"/>Definietly</label>
             </div>
             <div>
                 <label for="maybe">
@@ -71,18 +73,20 @@
             </div>
             <div>
                 <label for=">3>">
-                    <input name="checkbox" type="checkbox" value=">3" class="input-checkbox"/>greater than 3 Years</label>
+                    <input name="checkbox" type="checkbox" value=">3" class="input-checkbox"/>greater than 3
+                    Years</label>
             </div>
         </div>
         <div class="form-group">
             <p>Any comments?</p>
             <textarea id="comments" class="form-control" placeholder="Enter your comments"></textarea>
         </div>
-        <div id="btn">
-        <button type="button" onclick="clickButton()">Submit</button>
-        </div>
+        <div id="btn" class="form-group" onsubmit="clickButton()">
+      <button type="submit" id="submit" class="submit-button">
+        Submit
+      </button>
+    </div>
     </form>
 </div>
-<script src="script.js"></script>
 </body>
 </html>
