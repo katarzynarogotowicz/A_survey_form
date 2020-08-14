@@ -2,6 +2,9 @@
 Library           SeleniumLibrary
 Library           Collections
 Documentation     https://www.freecodecamp.org/learn/responsive-web-design/responsive-web-design-projects/build-a-survey-form
+Suite Setup       Open Browser        ${SURVEY PAGE}    ${BROWSER}
+Suite Teardown    Close Browser
+Test Teardown     Reload Page
 
 *** Variables ***
 ${SURVEY PAGE}    C:/Users/R Co/WebSite/A_survey_form/A_survey_form/A_survey_form.html
@@ -10,70 +13,52 @@ ${BROWSER}        chrome
 
 *** Test Cases ***
 Check open Survey Page
-  When Survey Page is opened
-  Then The expected title page should be 'Survey Form'
-  [Teardown]  Close Browser
+  The expected title page should be 'Survey Form'
 
 Check fill the name
-  Given Survey Page is opened
-  When User fill the name field with 'Katarzyna'
-  Then Element name contains 'Katarzyna'
-  [Teardown]  Close Browser
+  User fill the name field with 'Katarzyna'
+  Element name contains 'Katarzyna'
 
 Check fill the email
-  Given Survey Page is opened
-  When User fill an email field with 'test@test.com'
-  Then Element email contains 'test@test.com'
-  [Teardown]  Close Browser
+  User fill an email field with 'test@test.com'
+  Element email contains 'test@test.com'
 
 Check select age
-  Given Survey Page is opened
-  When User fill an '30'
-  Then Element age contains '30'
-  [Teardown]  Close Browser
+  User fill an '30' age
+  Element age contains '30'
 
-#zrobić - Check select invalid age
-#  When Survey Page is opened
-#  Given User fill an '30'
-#  Then Element age contains '30'
-#  [Teardown]  Close Browser
+Check select invalid age
+  User fill mandatory fields
+  User fill an '12' as invalid age
+  Submit button is clicked
+  Form wasn't submited
 
 Check education field
-  Given Survey Page is opened
-  When Select 'High' education
-  Then 'High' education is selected
-  [Teardown]  Close Browser
+  Select 'High' education
+  'High' education is selected
 
 Check industry field
-  Given Survey Page is opened
-  When Select 'IT' industry
-  Then 'IT' industry is selected
-  [Teardown]  Close Browser
+  Select 'IT' industry
+  'IT' industry is selected
 
 Check radio button selection
-  Given Survey Page is opened
-  When Select 'definietly' radio button
-  Then 'definietly' radio button is checked
-  [Teardown]  Close Browser
-
+  Select 'definietly' radio button
+  'definietly' radio button is checked
+  
 Check checkbox selection
-  Given Survey Page is opened
-  When Select 'up to 1 Year' checkbox
-  Then 'up to 1 Year' is checked
-  [Teardown]  Close Browser
-
+  Select 'up to 1 Year' checkbox
+  'up to 1 Year' is checked
+  
 Check for a comment textarea
-  Given Survey Page is opened
-  When Insert 'text' into comments textarea
-  Then Element Text Should Be 'text'
-  [Teardown]  Close Browser
-
+  Insert 'text' into comments textarea
+  Element Text Should Be 'text'
+  
 Check the form submition
-  Given Survey Page is opened
-  When Submit button is clicked
-  Then The form is submited
-  [Teardown]  Close Browser
-
+  User fill mandatory fields
+  User fill an '30' age
+  Submit button is clicked
+  The form is submited
+  
 *** Keywords ***
 Survey Page is opened
     Open Browser                               ${SURVEY PAGE}      ${BROWSER}
@@ -95,12 +80,23 @@ Element email contains '${email}'
     ${value_email}=    Get Element Attribute   id=email              value
     Should Be Equal As Strings                 ${value_email}        ${email}
 
-User fill an '${age}'
+User fill an '${age}' age
     Input Text                                 id=age                ${age}
+
+User fill an '${age}' as invalid age
+    Input Text                                 id=age                ${age}
+    Assign ID to Element   name=age  Kasia_jest_super
 
 Element age contains '${age}'
     ${value_age}=    Get Element Attribute     id=age                value
     Should Be Equal As Strings                 ${value_age}          ${age}
+
+User fill mandatory fields
+    User fill the name field with 'Katarzyna'
+    User fill an email field with 'test@test.com'
+
+Form wasn't submited
+    Page Should Contain Element                  Kasia_jest_super
 
 Select '${level}' education
     Click element                              id=education
@@ -115,9 +111,9 @@ Select '${industry}' industry
     Select from list by label                  id=industry           ${industry}
 
 '${industry}' industry is selected
-     ${level_trade}=   Get WebElements         css=option:checked
-     ${level_tra}=     Get Element Attribute   ${level_trade}[1]        label
-     Should Be Equal As Strings                ${level_tra}             ${industry}
+    ${level_trade}=   Get WebElements         css=option:checked
+    ${level_tra}=     Get Element Attribute   ${level_trade}[1]        label
+    Should Be Equal As Strings                ${level_tra}             ${industry}
 
 Select '${determination}' radio button
     Select Radio Button                        radiobutton           ${determination}
@@ -135,11 +131,12 @@ Insert '${text}' into comments textarea
     Input Text                                 id=comments            ${text}
 
 Element Text Should Be '${text}'
-   ${value_text}=    Get Element Attribute     id=comments            value
-   Should Be Equal As Strings                  ${value_text}          ${text}
+    ${value_text}=    Get Element Attribute     id=comments            value
+    Should Be Equal As Strings                  ${value_text}          ${text}
 
 Submit button is clicked
+   Assign ID to Element                        name=age  Kasia_jest_super
    Click Button                                Submit
 
 The form is submited
-   Page should contain                         Form sent.
+   Page Should Not Contain Element             Kasia_jest_super
